@@ -17,7 +17,10 @@ public:
         ListNode*temp =head;
         while(temp->next!=NULL){
             if(temp->val == temp->next->val){
-                temp->next = temp->next->next;
+                ListNode* current_next = temp->next->next;
+                ListNode* Nodetodelete = temp->next;
+                delete(Nodetodelete);
+                temp->next= current_next;
             }
             else{
                 temp = temp->next;
