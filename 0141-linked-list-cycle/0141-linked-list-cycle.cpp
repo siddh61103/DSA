@@ -15,7 +15,7 @@ public:
         
         while(temp!=NULL){
             // if(head==NULL){
-            //     return true;
+            //     return false;
             // }
             if(visited[temp]==true){
                 return true;
