@@ -10,26 +10,47 @@
  */
 class Solution {
 private:
-    bool check_palindrome(vector<int>arr){
-        int s = 0;
-        int e = arr.size()-1;
-        while(s<e){
-            if(arr[s]!=arr[e]){
-                return 0;
-            }
-            s++;
-            e--;
+    ListNode *reverse(ListNode*&head){
+        ListNode *prev = NULL;
+        ListNode *curr = head; 
+        ListNode *next = NULL;
+        while(curr!=NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
-        return 1;
+        return prev;
+    }
+    ListNode *find_mid(ListNode* head){
+        ListNode *slow = head;
+        ListNode *fast = head->next;
+        while(fast!=NULL &&fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next;
+            if(fast->next!= NULL){
+                fast = fast->next;
+            }
+        }
+        return slow;
     }
 public:
     bool isPalindrome(ListNode* head) {
         vector<int>arr;
-        ListNode *temp = head;
-        while(temp!=NULL){
-            arr.push_back(temp->val);
-            temp = temp->next;
+        ListNode *mid = find_mid(head);
+        ListNode *temp = mid->next;
+        temp = reverse(temp);
+        ListNode * node1 = head;
+        ListNode* node2 = temp;
+        while(node2!=NULL){
+            if(node1->val!=node2->val){
+                return 0;
+            }
+            node2 = node2->next;
+            node1 = node1->next;
         }
-        return check_palindrome(arr);
+        temp = mid->next;
+        temp = reverse(temp);
+        return 1;
     }
 };
