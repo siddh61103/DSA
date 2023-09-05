@@ -13,44 +13,96 @@ public:
     }
 };
 */
-void insertAt(Node * &head,Node * &tail,int val){
-    Node* temp = new Node(val);
-    if(head==NULL){
+void insertAt(Node* &head, Node* &tail, int value){
+    Node* temp = new Node(value);
+    if(head == NULL){
         head = temp;
         tail = temp;
-        return;
     }
     else{
         tail->next = temp;
         tail = temp;
-    }    
+    }
+    return;
 }
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
+        // 1. create a clone node
         Node * clonehead = NULL;
-        Node * clonetail = NULL;
-        Node * temp = head;
+        Node* clonetail = NULL;
+        
+        Node* temp = head;
         while(temp!=NULL){
             insertAt(clonehead,clonetail,temp->val);
             temp = temp->next;
         }
-        //mapping
-        unordered_map<Node*,Node*> originalToClone;
-        Node * orignode = head;
-        Node * clonenode = clonehead;
-        while(orignode!=NULL && clonenode!=NULL){
-            originalToClone[orignode] = clonenode; 
-            orignode=orignode->next;
-            clonenode=clonenode->next;
+        // 2. add clone node between original list
+        Node *originalnode = head;
+        Node *clonenode = clonehead;
+        
+        while(originalnode!=NULL && clonenode!=NULL){
+            Node*temp = originalnode->next;
+            originalnode->next = clonenode;
+            originalnode = temp;
+            
+            temp = clonenode->next;
+            clonenode->next = originalnode;
+            clonenode = temp;
+            
         }
-        orignode=head;
-        clonenode=clonehead;
-        while(orignode!=NULL){
-            clonenode->random = originalToClone[orignode->random];
-            orignode=orignode->next;
-            clonenode=clonenode->next;
+        // 3. copy random pointer 
+        temp = head;
+        while(temp != NULL){
+            if(temp->next != NULL){
+                temp->next->random = temp->random? temp->random->next: temp->random;
+                temp = temp->next->next;
+            }
         }
+        
+        // 4.revert changes of step2
+        originalnode = head;
+        clonenode = clonehead;
+        
+        while(originalnode!=NULL && clonenode!=NULL){
+            
+            originalnode->next = clonenode->next;
+            originalnode = originalnode->next;
+            if(originalnode!=NULL){
+                clonenode->next = originalnode->next;
+            }
+            clonenode = clonenode->next;
+        }
+        // 5.return answer
         return clonehead;
+        
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
