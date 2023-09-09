@@ -7,10 +7,8 @@ public:
             if( prev > prices[i] ){
                 prev = prices[i];
             }
-            else if(prev < prices[i]){
-                if( profit < ( prices[i] - prev )){
-                    profit = prices[i] - prev;
-                }
+            if( profit < ( prices[i] - prev )){
+                profit = prices[i] - prev;
             }
         }
         return profit;
