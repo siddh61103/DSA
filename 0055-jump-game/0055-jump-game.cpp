@@ -7,7 +7,10 @@ public:
             if(temp<i){
                 return false;
             }
-            temp = max( temp, i + nums[i]);
+            if(temp<i+nums[i]){
+                temp = i+nums[i];
+            }
+            // temp = max( temp, i + nums[i]);
         }
         return true;
     }
