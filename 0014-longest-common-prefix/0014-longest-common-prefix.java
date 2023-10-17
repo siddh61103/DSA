@@ -5,10 +5,9 @@ class Solution {
         String ans = "";
         char c;
         int t = 201;
-        for(int i = 0;i < n ;i++){
-            String s = strs[i]; 
-            if(s.length() < t){
-                t = s.length();
+        for(int i = 0;i < n ;i++){ 
+            if(strs[i].length() < t){
+                t = strs[i].length();
             }
         }
         while(m<t){
