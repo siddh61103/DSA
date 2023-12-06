@@ -49,9 +49,6 @@ public:
         reverse(right.begin(),right.end());
         int ans= 0;
         for(int i =0 ;i<n;i++){
-            // cout<< heights[i] <<" l "<<left[i]<<" r "<<right[i]<<" ";
-            
-            // cout<<endl;
             int k = (heights[i]) * (right[i]-left[i]-1);
             if(ans<k){
                 ans = k;
