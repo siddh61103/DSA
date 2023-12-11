@@ -1,13 +1,13 @@
 class Solution {
 public:
     int findSpecialInteger(vector<int>& arr) {
-        vector<int> v(1000000,0);
-        for(int i =0;i<arr.size();i++){
-            v[arr[i]]++;
+        unordered_map<int,int> mp;
+        for(auto i:arr){
+            mp[i]++;
         }
-        for(int i =0;i<v.size();i++){
-            if(v[i] > arr.size()/4){
-                return i;
+        for(auto i:mp){
+            if(i.second>arr.size()/4){
+                return i.first;
             }
         }
         return -1;
