@@ -17,20 +17,17 @@ public:
         if(root==NULL){
             return ans;
         }
-        stack<TreeNode*> st1,st2;
+        stack<TreeNode*> st1;
         st1.push(root);
         
         while(!st1.empty()){
-                root = st1.top();
-                st2.push(root);
-                st1.pop();
-                if(root->left!=NULL) st1.push(root->left);
-                if(root->right!=NULL) st1.push(root->right);
+            root = st1.top();
+            ans.push_back(root->val);
+            st1.pop();
+            if(root->left!=NULL) st1.push(root->left);
+            if(root->right!=NULL) st1.push(root->right);
         }
-        while(!st2.empty()){
-            ans.push_back(st2.top()->val);
-            st2.pop();
-        }
+        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
