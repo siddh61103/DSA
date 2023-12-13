@@ -115,7 +115,7 @@ class Solution
             int x = p.second;
             Node * node = p.first;
             
-            if(mp[x] == 0) mp[x] = node->data;
+            if(mp.find(x) == mp.end()) mp[x] = node->data;
             
             if(node->left) q.push({ node->left, x-1});
             if(node->right) q.push({ node->right, x+1});
