@@ -2,10 +2,13 @@ class Solution {
 public:
     
     int left_height(TreeNode* root){
-        if(root==NULL) return 0 ;
-        return 1+left_height(root->left);
+        int h =0;
+        while(root){
+            root = root->left;
+            h++;
+        }
+        return h;
     }
-    // Different method in right and left function both are right (recusrion or while loop)
     int right_height(TreeNode* root){
         int h =0;
         while(root){
