@@ -11,17 +11,35 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root,int k,int &count,int &ans){
-        if(root==NULL) return ;
-        inorder(root->left,k,count,ans);
-        count++;
-        if(count==k) ans = root->val;
-        inorder(root->right,k,count,ans);
+    void morris_traversal(TreeNode* root,int k,int &count,int &ans){
+        while(root!=NULL){
+            if(root->left){
+                TreeNode* temp = root->left;
+                while(temp->right!=NULL && temp->right!=root){
+                    temp = temp->right;
+                }
+                if(temp->right==NULL){
+                    temp->right = root;
+                    root = root->left;
+                }
+                else{
+                    count++;
+                    if(count ==k) ans = root->val;
+                    root = root->right;
+                    temp->right = NULL;
+                }
+            }
+            else{
+                count++;
+                if(count ==k) ans = root->val;
+                root = root->right;
+            }
+        }
     }
     int kthSmallest(TreeNode* root, int k) {
-        int ans = 0;
         int count = 0;
-        inorder(root,k,count,ans);
+        int ans = 0;
+        morris_traversal(root,k,count,ans);
         return ans;
     }
 };
