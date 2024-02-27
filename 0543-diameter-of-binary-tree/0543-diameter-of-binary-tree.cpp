@@ -1,18 +1,15 @@
 class Solution {
 public:
-    int FindHeight(TreeNode* root,int &diameter){
-        if(root==NULL){
-            return 0;
-        }
-        int left = FindHeight(root->left,diameter);
-        int right = FindHeight(root->right,diameter);
-        diameter = max(diameter,left+right);
-        return max(left,right)+1;
-    }   
-    
+    int solve(TreeNode* root,int &ans){
+        if(root==NULL) return 0;
+        int a = solve(root->left,ans);
+        int b = solve(root->right,ans);
+        ans = max(ans,a+b);
+        return 1 + max(a,b);
+    }
     int diameterOfBinaryTree(TreeNode* root) {
-        int diameter = 0;
-        FindHeight(root,diameter);
-        return diameter;
+        int ans = 0;
+        solve(root,ans);
+        return ans;
     }
 };
