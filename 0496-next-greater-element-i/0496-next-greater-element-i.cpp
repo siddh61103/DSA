@@ -5,20 +5,15 @@ public:
         int m = nums2.size();
         vector<int>next_great(m,-1);
         vector<int>ans(n,-1);
-        priority_queue<int,vector<int>,greater<int>> pq;
+        stack<int> s;
         next_great[m-1] = -1;
-        pq.push(nums2[m-1]);
+        s.push(nums2[m-1]);
         for(int i=m-2;i>=0;i--){
-            while(pq.top()<=nums2[i] && pq.size()!=0){
-                pq.pop();
+            while(!s.empty() && s.top()<=nums2[i]){
+                s.pop();
             }
-            if(pq.size()==0){
-                pq.push(nums2[i]);
-            }
-            else{
-                next_great[i]=pq.top();
-                pq.push(nums2[i]);
-            }
+            next_great[i] = s.empty() ? -1 : s.top();
+            s.push(nums2[i]);
         }
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
