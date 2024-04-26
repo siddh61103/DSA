@@ -1,8 +1,8 @@
 class Solution {
 public:
     int openLock(vector<string>& deadends, string target) {
-        map<string,int> use_map;
-        map<string,int> dead_map;
+        unordered_map<string,int> use_map;
+        unordered_map<string,int> dead_map;
         for(auto i : deadends) dead_map[i]=1;
         queue<pair<string,int>> q;
         if(dead_map.find("0000")!=dead_map.end()) return -1;
