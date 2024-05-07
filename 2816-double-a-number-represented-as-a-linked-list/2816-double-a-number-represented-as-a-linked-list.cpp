@@ -11,23 +11,23 @@
 class Solution {
     ListNode* solve(ListNode* head, int& n){
         int k = head->val * 2;
-        ListNode *temp = new ListNode(k%10);
-        if(head->next==NULL) temp->next=NULL;
+        head->val = k%10;
+        if(head->next==NULL) head->next=NULL;
         else{
-            temp->next = solve(head->next,n);
+            head->next = solve(head->next,n);
             k+=n;
-            temp->val = k%10;
+            head->val = k%10;
         }
         n = k/10;
-        return temp;
+        return head;
     }
 public:
     ListNode* doubleIt(ListNode* head) {
         int a = 0;
-        ListNode* ans = solve(head,a);
-        if(a==0) return ans;
-        ListNode* carry  = new ListNode(a);
-        carry->next = ans;
-        return carry;
+        head = solve(head,a);
+        if(a==0) return head;
+        ListNode* ans = new ListNode(a);
+        ans->next = head;
+        return ans;
     }
 };
